@@ -56,7 +56,7 @@ AWS Private CA enables creation of private certificate authority (CA) hierarchie
 | <a name="input_kms_key_alias"></a> [kms\_key\_alias](#input\_kms\_key\_alias) | Alias for the KMS key | `string` | `""` | no |
 | <a name="input_kms_key_users"></a> [kms\_key\_users](#input\_kms\_key\_users) | List of KMS key users | `list(string)` | `[]` | no |
 | <a name="input_locality"></a> [locality](#input\_locality) | Locality (such as a city or town) in which the certificate subject is located | `string` | `""` | no |
-| <a name="input_ocsp_custom_cname"></a> [ocsp\_custom\_cname](#input\_ocsp\_custom\_cname) | CNAME specifying a customized OCSP domain | `string` | n/a | yes |
+| <a name="input_ocsp_custom_cname"></a> [ocsp\_custom\_cname](#input\_ocsp\_custom\_cname) | CNAME specifying a customized OCSP domain | `string` | `""` | no |
 | <a name="input_organization"></a> [organization](#input\_organization) | Legal name of the organization with which the certificate subject is affiliated | `string` | `""` | no |
 | <a name="input_organizational_unit"></a> [organizational\_unit](#input\_organizational\_unit) | Subdivision or unit of the organization (such as sales or finance) with which the certificate subject is affiliated | `string` | `""` | no |
 | <a name="input_s3_object_acl"></a> [s3\_object\_acl](#input\_s3\_object\_acl) | Determines whether the CRL will be publicly readable or privately held in the CRL Amazon S3 bucket | `string` | `"BUCKET_OWNER_FULL_CONTROL"` | no |

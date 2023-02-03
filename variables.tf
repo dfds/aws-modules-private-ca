@@ -99,6 +99,7 @@ variable "enable_ocsp" {
 variable "ocsp_custom_cname" {
   type        = string
   description = "CNAME specifying a customized OCSP domain"
+  default     = ""
 }
 
 ## KMS
