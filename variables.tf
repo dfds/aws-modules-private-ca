@@ -48,6 +48,12 @@ variable "state" {
   default     = ""
 }
 
+variable "usage_mode" {
+  type        = string
+  description = "Specifies whether the CA issues general-purpose certificates that typically require a revocation mechanism, or short-lived certificates that may optionally omit revocation because they expire quickly"
+  default     = "GENERAL_PURPOSE"
+}
+
 
 ## CRL
 

@@ -62,6 +62,7 @@ AWS Private CA enables creation of private certificate authority (CA) hierarchie
 | <a name="input_s3_object_acl"></a> [s3\_object\_acl](#input\_s3\_object\_acl) | Determines whether the CRL will be publicly readable or privately held in the CRL Amazon S3 bucket | `string` | `"BUCKET_OWNER_FULL_CONTROL"` | no |
 | <a name="input_signing_algorithm"></a> [signing\_algorithm](#input\_signing\_algorithm) | Name of the algorithm your private CA uses to sign certificate requests | `string` | `"SHA256WITHRSA"` | no |
 | <a name="input_state"></a> [state](#input\_state) | State in which the subject of the certificate is located | `string` | `""` | no |
+| <a name="input_usage_mode"></a> [usage\_mode](#input\_usage\_mode) | Specifies whether the CA issues general-purpose certificates that typically require a revocation mechanism, or short-lived certificates that may optionally omit revocation because they expire quickly | `string` | `"GENERAL_PURPOSE"` | no |
 
 ## Outputs
 

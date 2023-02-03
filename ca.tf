@@ -12,6 +12,8 @@ resource "aws_acmpca_certificate_authority" "this" {
     }
   }
 
+  usage_mode = var.usage_mode
+
   dynamic "revocation_configuration" {
     for_each = var.enable_crl || var.enable_ocsp ? ["OK"] : []
 
