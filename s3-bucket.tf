@@ -61,11 +61,11 @@ data "aws_iam_policy_document" "bucket" {
       type        = "AWS"
     }
 
-    condition {
-      test     = "Bool"
-      values   = [false]
-      variable = "aws:SecureTransport"
-    }
+    #    condition {
+    #      test     = "Bool"
+    #      values   = [false]
+    #      variable = "aws:SecureTransport"
+    #    }
 
     #    condition {
     #      test     = "NumericLessThan"
