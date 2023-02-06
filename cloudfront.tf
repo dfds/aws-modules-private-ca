@@ -21,8 +21,8 @@ module "cloudfront" {
   ]
 
   logging_config = {
-    bucket = module.cloudfront_logging_bucket[0].bucket_name
-    prefix = "/logs"
+    bucket = module.cloudfront_logging_bucket[0].bucket_domain_name
+    prefix = "logs"
   }
 
   restrictions = {
