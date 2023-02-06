@@ -5,6 +5,8 @@ resource "aws_kms_key" "this" {
   deletion_window_in_days = 7
   policy                  = data.aws_iam_policy_document.kms[count.index].json
   enable_key_rotation     = var.enable_key_rotation
+
+  tags = var.kms_tags
 }
 
 resource "aws_kms_alias" "this" {

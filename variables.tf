@@ -54,6 +54,12 @@ variable "cloudfront_tags" {
   default     = {}
 }
 
+variable "kms_tags" {
+  type        = object({})
+  description = "Map of tags for KMS key distribution"
+  default     = {}
+}
+
 variable "state" {
   type        = string
   description = "State in which the subject of the certificate is located"

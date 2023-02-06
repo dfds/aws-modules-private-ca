@@ -57,6 +57,7 @@ AWS Private CA enables creation of private certificate authority (CA) hierarchie
 | <a name="input_kms_key_administrators"></a> [kms\_key\_administrators](#input\_kms\_key\_administrators) | List of KMS key administrators | `list(string)` | `[]` | no |
 | <a name="input_kms_key_alias"></a> [kms\_key\_alias](#input\_kms\_key\_alias) | Alias for the KMS key | `string` | `""` | no |
 | <a name="input_kms_key_users"></a> [kms\_key\_users](#input\_kms\_key\_users) | List of KMS key users | `list(string)` | `[]` | no |
+| <a name="input_kms_tags"></a> [kms\_tags](#input\_kms\_tags) | Map of tags for KMS key distribution | `object({})` | `{}` | no |
 | <a name="input_locality"></a> [locality](#input\_locality) | Locality (such as a city or town) in which the certificate subject is located | `string` | `""` | no |
 | <a name="input_ocsp_custom_cname"></a> [ocsp\_custom\_cname](#input\_ocsp\_custom\_cname) | CNAME specifying a customized OCSP domain | `string` | `""` | no |
 | <a name="input_organization"></a> [organization](#input\_organization) | Legal name of the organization with which the certificate subject is affiliated | `string` | `""` | no |
