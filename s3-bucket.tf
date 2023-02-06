@@ -67,11 +67,11 @@ data "aws_iam_policy_document" "bucket" {
       variable = "aws:SecureTransport"
     }
 
-    condition {
-      test     = "NumericLessThan"
-      values   = [1.2]
-      variable = "s3:TlsVersion"
-    }
+    #    condition {
+    #      test     = "NumericLessThan"
+    #      values   = [1.2]
+    #      variable = "s3:TlsVersion"
+    #    }
   }
 
   # Allow OAI access - https://aws.amazon.com/premiumsupport/knowledge-center/cloudfront-access-to-amazon-s3/
