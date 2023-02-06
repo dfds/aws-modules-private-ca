@@ -20,32 +20,32 @@ resource "aws_s3_bucket_policy" "this" {
 data "aws_iam_policy_document" "bucket" {
   count = var.enable_crl ? 1 : 0
 
-  #  statement {
-  #    principals {
-  #      identifiers = ["acm-pca.amazonaws.com"]
-  #      type        = "Service"
-  #    }
-  #    actions = [
-  #      "s3:PutObject",
-  #      "s3:PutObjectAcl",
-  #      "s3:GetBucketAcl",
-  #      "s3:GetBucketLocation"
-  #    ]
-  #    resources = [
-  #      "${module.crl_bucket[0].bucket_arn}/*",
-  #      module.crl_bucket[0].bucket_arn
-  #    ]
-  #    condition {
-  #      test     = "StringEquals"
-  #      values   = [data.aws_caller_identity.current.account_id]
-  #      variable = "aws:SourceAccount"
-  #    }
-  #    condition {
-  #      test     = "StringEquals"
-  #      values   = ["arn:${data.aws_partition.current.partition}:acm-pca:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:certificate-authority/CA_ID"]
-  #      variable = "aws:SourceArn"
-  #    }
-  #}
+  statement {
+    principals {
+      identifiers = ["acm-pca.amazonaws.com"]
+      type        = "Service"
+    }
+    actions = [
+      "s3:PutObject",
+      "s3:PutObjectAcl",
+      "s3:GetBucketAcl",
+      "s3:GetBucketLocation"
+    ]
+    resources = [
+      "${module.crl_bucket[0].bucket_arn}/*",
+      module.crl_bucket[0].bucket_arn
+    ]
+    condition {
+      test     = "StringEquals"
+      values   = [data.aws_caller_identity.current.account_id]
+      variable = "aws:SourceAccount"
+    }
+    #    condition {
+    #      test     = "StringEquals"
+    #      values   = ["arn:${data.aws_partition.current.partition}:acm-pca:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:certificate-authority/CA_ID"]
+    #      variable = "aws:SourceArn"
+    #    }
+  }
 
   statement {
     sid     = "AllowSSLRequestsOnly"
@@ -67,11 +67,11 @@ data "aws_iam_policy_document" "bucket" {
       variable = "aws:SecureTransport"
     }
 
-    condition {
-      test     = "NumericLessThan"
-      values   = [1.2]
-      variable = "s3:TlsVersion"
-    }
+    #    condition {
+    #      test     = "NumericLessThan"
+    #      values   = [1.2]
+    #      variable = "s3:TlsVersion"
+    #    }
   }
 
   # Allow OAI access - https://aws.amazon.com/premiumsupport/knowledge-center/cloudfront-access-to-amazon-s3/
