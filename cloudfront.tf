@@ -34,6 +34,8 @@ module "cloudfront" {
 
   target_origin_id       = module.crl_bucket[0].bucket_name
   viewer_protocol_policy = "redirect-to-https"
+
+  tags = var.cloudfront_tags
 }
 
 module "cloudfront_logging_bucket" {

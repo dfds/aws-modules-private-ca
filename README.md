@@ -41,7 +41,9 @@ AWS Private CA enables creation of private certificate authority (CA) hierarchie
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_bucket_name"></a> [bucket\_name](#input\_bucket\_name) | Name of the S3 bucket that contains the CRL | `string` | `""` | no |
+| <a name="input_ca_type"></a> [ca\_type](#input\_ca\_type) | Type of the certificate authority. Defaults to `SUBORDINATE` | `string` | `"SUBORDINATE"` | no |
 | <a name="input_cloudfront_logging_bucket"></a> [cloudfront\_logging\_bucket](#input\_cloudfront\_logging\_bucket) | Name of the S3 bucket for Cloudfront logs | `string` | `""` | no |
+| <a name="input_cloudfront_tags"></a> [cloudfront\_tags](#input\_cloudfront\_tags) | Map of tags for Cloudfront distribution | `object({})` | `{}` | no |
 | <a name="input_common_name"></a> [common\_name](#input\_common\_name) | Fully qualified domain name (FQDN) associated with the certificate subject | `string` | `""` | no |
 | <a name="input_country"></a> [country](#input\_country) | Two digit code that specifies the country in which the certificate subject located | `string` | `""` | no |
 | <a name="input_create_kms"></a> [create\_kms](#input\_create\_kms) | Whether to create a KMS key for S3 bucket | `bool` | `true` | no |
@@ -59,6 +61,7 @@ AWS Private CA enables creation of private certificate authority (CA) hierarchie
 | <a name="input_ocsp_custom_cname"></a> [ocsp\_custom\_cname](#input\_ocsp\_custom\_cname) | CNAME specifying a customized OCSP domain | `string` | `""` | no |
 | <a name="input_organization"></a> [organization](#input\_organization) | Legal name of the organization with which the certificate subject is affiliated | `string` | `""` | no |
 | <a name="input_organizational_unit"></a> [organizational\_unit](#input\_organizational\_unit) | Subdivision or unit of the organization (such as sales or finance) with which the certificate subject is affiliated | `string` | `""` | no |
+| <a name="input_private_ca_tags"></a> [private\_ca\_tags](#input\_private\_ca\_tags) | Map of tags for private CA | `object({})` | `{}` | no |
 | <a name="input_s3_object_acl"></a> [s3\_object\_acl](#input\_s3\_object\_acl) | Determines whether the CRL will be publicly readable or privately held in the CRL Amazon S3 bucket | `string` | `"BUCKET_OWNER_FULL_CONTROL"` | no |
 | <a name="input_signing_algorithm"></a> [signing\_algorithm](#input\_signing\_algorithm) | Name of the algorithm your private CA uses to sign certificate requests | `string` | `"SHA256WITHRSA"` | no |
 | <a name="input_state"></a> [state](#input\_state) | State in which the subject of the certificate is located | `string` | `""` | no |

@@ -12,6 +12,7 @@ resource "aws_acmpca_certificate_authority" "this" {
     }
   }
 
+  type       = var.ca_type
   usage_mode = var.usage_mode
 
   dynamic "revocation_configuration" {
@@ -40,6 +41,8 @@ resource "aws_acmpca_certificate_authority" "this" {
       }
     }
   }
+
+  tags = var.private_ca_tags
 }
 
 #resource "aws_route53_record" "this" {

@@ -42,6 +42,18 @@ variable "organizational_unit" {
   default     = ""
 }
 
+variable "private_ca_tags" {
+  type        = object({})
+  description = "Map of tags for private CA"
+  default     = {}
+}
+
+variable "cloudfront_tags" {
+  type        = object({})
+  description = "Map of tags for Cloudfront distribution"
+  default     = {}
+}
+
 variable "state" {
   type        = string
   description = "State in which the subject of the certificate is located"
@@ -52,6 +64,12 @@ variable "usage_mode" {
   type        = string
   description = "Specifies whether the CA issues general-purpose certificates that typically require a revocation mechanism, or short-lived certificates that may optionally omit revocation because they expire quickly"
   default     = "GENERAL_PURPOSE"
+}
+
+variable "ca_type" {
+  type        = string
+  description = "Type of the certificate authority. Defaults to `SUBORDINATE`"
+  default     = "SUBORDINATE"
 }
 
 
