@@ -35,16 +35,16 @@ data "aws_iam_policy_document" "bucket" {
       "${module.crl_bucket[0].bucket_arn}/*",
       module.crl_bucket[0].bucket_arn
     ]
-    condition {
-      test     = "StringEquals"
-      values   = [data.aws_caller_identity.current.account_id]
-      variable = "aws:SourceAccount"
-    }
-    condition {
-      test     = "StringEquals"
-      values   = [aws_acmpca_certificate_authority.this.arn]
-      variable = "aws:SourceArn"
-    }
+    #    condition {
+    #      test     = "StringEquals"
+    #      values   = [data.aws_caller_identity.current.account_id]
+    #      variable = "aws:SourceAccount"
+    #    }
+    #    condition {
+    #      test     = "StringEquals"
+    #      values   = ["arn:${data.aws_partition.current.partition}:acm-pca:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:certificate-authority/CA_ID"]
+    #      variable = "aws:SourceArn"
+    #    }
   }
 
   statement {
