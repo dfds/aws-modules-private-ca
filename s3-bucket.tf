@@ -3,7 +3,7 @@ module "crl_bucket" {
   source = "git::https://github.com/dfds/aws-modules-s3.git?ref=main"
 
   bucket_name                     = var.bucket_name
-  bucket_versioning_configuration = "Disabled"
+  bucket_versioning_configuration = "Enabled"
   object_ownership                = "BucketOwnerPreferred"
   create_policy                   = false
 

@@ -21,7 +21,7 @@ module "cloudfront" {
   ]
 
   logging_config = {
-    bucket = module.cloudfront_logging_bucket[0].bucket_domain_name
+    bucket = module.crl_bucket[0].bucket_domain_name
     prefix = "logs"
   }
 
@@ -40,12 +40,4 @@ module "cloudfront" {
   }
 
   tags = var.cloudfront_tags
-}
-
-module "cloudfront_logging_bucket" {
-  count  = var.enable_crl || var.enable_ocsp ? 1 : 0
-  source = "git::https://github.com/dfds/aws-modules-s3.git?ref=main"
-
-  bucket_name = var.cloudfront_logging_bucket
-  kms_key_arn = aws_kms_key.this[0].arn
 }
