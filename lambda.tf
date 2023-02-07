@@ -59,6 +59,8 @@ resource "aws_lambda_invocation" "this" {
   function_name = aws_lambda_function.this[0].function_name
   input         = ""
   triggers = {
-    redeployment = sha1(aws_acmpca_certificate_authority.this.status)
+    redeployment = sha1(jsonencode([
+      aws_lambda_function.this[0].environment
+    ]))
   }
 }

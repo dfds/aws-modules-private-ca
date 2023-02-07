@@ -32,7 +32,7 @@ func HandleRequest(ctx context.Context) (string, error) {
 		return "", err
 	}
 	status := dcao.CertificateAuthority.Status
-	if status != "PENDING_CERTIFICATE" {
+	if status != "PENDING_CERTIFICATE" && status != "EXPIRED" {
 		fmt.Println("Certificate authority status: ", status)
 	}
 
