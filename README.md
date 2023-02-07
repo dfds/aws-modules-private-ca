@@ -28,18 +28,25 @@ AWS Private CA enables creation of private certificate authority (CA) hierarchie
 |------|------|
 | [aws_acmpca_certificate_authority.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/acmpca_certificate_authority) | resource |
 | [aws_cloudfront_origin_access_identity.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_origin_access_identity) | resource |
+| [aws_cloudwatch_log_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
+| [aws_iam_role.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
+| [aws_iam_role_policy_attachment.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_kms_alias.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_alias) | resource |
 | [aws_kms_key.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_key) | resource |
+| [aws_lambda_function.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function) | resource |
+| [aws_lambda_invocation.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_invocation) | resource |
 | [aws_s3_bucket_policy.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_policy) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_iam_policy_document.bucket](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.kms](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.lambda](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_bucket_name"></a> [bucket\_name](#input\_bucket\_name) | Name of the S3 bucket that contains the CRL | `string` | `""` | no |
+| <a name="input_ca_certificate_validity"></a> [ca\_certificate\_validity](#input\_ca\_certificate\_validity) | How long the CA certificate should be valid in days | `number` | `3634` | no |
 | <a name="input_ca_type"></a> [ca\_type](#input\_ca\_type) | Type of the certificate authority. Defaults to `SUBORDINATE` | `string` | `"SUBORDINATE"` | no |
 | <a name="input_cloudfront_logging_bucket"></a> [cloudfront\_logging\_bucket](#input\_cloudfront\_logging\_bucket) | Name of the S3 bucket for Cloudfront logs | `string` | `""` | no |
 | <a name="input_cloudfront_tags"></a> [cloudfront\_tags](#input\_cloudfront\_tags) | Map of tags for Cloudfront distribution | `object({})` | `{}` | no |
@@ -47,6 +54,7 @@ AWS Private CA enables creation of private certificate authority (CA) hierarchie
 | <a name="input_country"></a> [country](#input\_country) | Two digit code that specifies the country in which the certificate subject located | `string` | `""` | no |
 | <a name="input_create_kms"></a> [create\_kms](#input\_create\_kms) | Whether to create a KMS key for S3 bucket | `bool` | `true` | no |
 | <a name="input_custom_cname"></a> [custom\_cname](#input\_custom\_cname) | Name inserted into the certificate CRL Distribution Points extension that enables the use of an alias for the CRL distribution point. Use this value if you don't want the name of your S3 bucket to be public | `string` | `""` | no |
+| <a name="input_deploy_lambda"></a> [deploy\_lambda](#input\_deploy\_lambda) | Whether to deploy the lambda to issue self-signed certificate for the private CA | `bool` | `true` | no |
 | <a name="input_enable_crl"></a> [enable\_crl](#input\_enable\_crl) | Whether to enable Certificate Revocation Lists | `bool` | `true` | no |
 | <a name="input_enable_key_rotation"></a> [enable\_key\_rotation](#input\_enable\_key\_rotation) | Whether to enable key rotation | `bool` | `true` | no |
 | <a name="input_enable_kms_default_policy"></a> [enable\_kms\_default\_policy](#input\_enable\_kms\_default\_policy) | Whether to enable default policy for KMS key | `bool` | `true` | no |

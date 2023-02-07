@@ -172,3 +172,16 @@ variable "cloudfront_logging_bucket" {
   description = "Name of the S3 bucket for Cloudfront logs"
   default     = ""
 }
+
+## Lambda
+variable "deploy_lambda" {
+  type        = bool
+  description = "Whether to deploy the lambda to issue self-signed certificate for the private CA"
+  default     = true
+}
+
+variable "ca_certificate_validity" {
+  type        = number
+  description = "How long the CA certificate should be valid in days"
+  default     = 3634
+}

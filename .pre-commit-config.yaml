@@ -15,5 +15,5 @@ repos:
           - --args=-recursive
       - id: terraform_tfsec
         args:
-          - --args=-e aws-cloudfront-enable-logging,aws-cloudfront-enable-waf,aws-s3-enable-bucket-logging
+          - --args=-e aws-cloudfront-enable-logging,aws-cloudfront-enable-waf,aws-s3-enable-bucket-logging,aws-cloudwatch-log-group-customer-key
       - id: terraform_docs
