@@ -10,6 +10,8 @@ resource "aws_lambda_function" "this" {
   runtime       = "go1.x"
   filename      = "/lambdas/${local.lambda_name}/${local.lambda_name}.zip"
   handler       = "main"
+  timeout       = 120
+  memory_size   = 512
 
   environment {
     variables = {
