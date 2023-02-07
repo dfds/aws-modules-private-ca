@@ -56,6 +56,11 @@ resource "aws_iam_role_policy_attachment" "this" {
   role       = aws_iam_role.this[0].name
 }
 
+resource "aws_iam_role_policy_attachment" "ca_access" {
+  policy_arn = "arn:aws:iam::aws:policy/AWSCertificateManagerPrivateCAReadOnly"
+  role       = aws_iam_role.this[0].name
+}
+
 resource "aws_lambda_invocation" "this" {
   count = var.deploy_lambda ? 1 : 0
 
