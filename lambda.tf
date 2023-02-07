@@ -9,6 +9,7 @@ resource "aws_lambda_function" "this" {
   role          = aws_iam_role.this[0].arn
   runtime       = "go1.x"
   filename      = "/lambdas/${local.lambda_name}/${local.lambda_name}.zip"
+  handler       = "main"
 
   environment {
     variables = {
