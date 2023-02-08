@@ -1,9 +1,9 @@
 locals {
   lambda_name = "certificate-issuer"
-  lambda_managed_policies = [
+  lambda_policies = [
     "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
     "arn:aws:iam::aws:policy/AWSCertificateManagerPrivateCAReadOnly",
-    "arn:aws:iam::aws:policy/AWSCertificateManagerPrivateCAUser"
+    aws_iam_policy.lambda_pca_access[0].arn
   ]
 }
 
@@ -57,9 +57,29 @@ resource "aws_cloudwatch_log_group" "lambda" {
 }
 
 resource "aws_iam_role_policy_attachment" "this" {
-  for_each   = toset(local.lambda_managed_policies)
+  for_each   = toset(local.lambda_policies)
   policy_arn = each.value
   role       = aws_iam_role.lambda[0].name
+}
+
+resource "aws_iam_policy" "lambda_pca_access" {
+  count  = var.deploy_lambda ? 1 : 0
+  policy = data.aws_iam_policy_document.lambda_pca_access[0].json
+}
+
+data "aws_iam_policy_document" "lambda_pca_access" {
+  count = var.deploy_lambda ? 1 : 0
+  statement {
+    sid = "AccessPCA"
+    actions = [
+      "acm-pca:IssueCertificate",
+      "acm-pca:GetCertificate",
+      "acm-pca:ListPermissions"
+    ]
+    resources = [
+      aws_acmpca_certificate_authority.this.arn
+    ]
+  }
 }
 
 resource "aws_lambda_invocation" "this" {
