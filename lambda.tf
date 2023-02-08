@@ -1,5 +1,9 @@
 locals {
   lambda_name = "certificate-issuer"
+  lambda_managed_policies = [
+    "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+    "arn:aws:iam::aws:policy/AWSCertificateManagerPrivateCAReadOnly"
+  ]
 }
 
 resource "aws_lambda_function" "this" {
@@ -52,7 +56,8 @@ resource "aws_cloudwatch_log_group" "lambda" {
 }
 
 resource "aws_iam_role_policy_attachment" "this" {
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+  for_each   = toset(local.lambda_managed_policies)
+  policy_arn = each.value
   role       = aws_iam_role.lambda[0].name
 }
 
