@@ -57,7 +57,8 @@ resource "aws_iam_role_policy_attachment" "this" {
 }
 
 resource "aws_lambda_invocation" "this" {
-  count = var.deploy_lambda ? 1 : 0
+  count      = var.deploy_lambda ? 1 : 0
+  depends_on = [aws_acmpca_policy.this]
 
   function_name = aws_lambda_function.this[0].function_name
   input         = ""

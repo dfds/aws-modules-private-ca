@@ -46,7 +46,6 @@ resource "aws_acmpca_certificate_authority" "this" {
 }
 
 resource "aws_acmpca_policy" "this" {
-  depends_on   = [aws_iam_role.lambda[0]]
   policy       = data.aws_iam_policy_document.acmpca.json
   resource_arn = aws_acmpca_certificate_authority.this.arn
 }
