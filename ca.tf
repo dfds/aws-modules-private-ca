@@ -57,7 +57,7 @@ data "aws_iam_policy_document" "acmpca" {
     content {
       sid = "LambdaCAAcces"
       principals {
-        identifiers = [aws_iam_role.lambda.arn]
+        identifiers = [aws_iam_role.lambda[0].arn]
         type        = "AWS"
       }
       actions = [
