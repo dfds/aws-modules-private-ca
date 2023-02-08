@@ -6,7 +6,7 @@ resource "aws_lambda_function" "this" {
   count = var.deploy_lambda ? 1 : 0
 
   function_name    = local.lambda_name
-  role             = aws_iam_role.this[0].arn
+  role             = aws_iam_role.lambda[0].arn
   runtime          = "go1.x"
   filename         = "${path.module}/lambdas/${local.lambda_name}/${local.lambda_name}.zip"
   source_code_hash = filebase64sha256("${path.module}/lambdas/${local.lambda_name}/${local.lambda_name}.zip")
@@ -26,7 +26,7 @@ resource "aws_lambda_function" "this" {
   }
 }
 
-resource "aws_iam_role" "this" {
+resource "aws_iam_role" "lambda" {
   count = var.deploy_lambda ? 1 : 0
 
   name               = local.lambda_name
@@ -45,7 +45,7 @@ data "aws_iam_policy_document" "lambda" {
   }
 }
 
-resource "aws_cloudwatch_log_group" "this" {
+resource "aws_cloudwatch_log_group" "lambda" {
   count             = var.deploy_lambda ? 1 : 0
   name              = "/aws/lambda/${local.lambda_name}"
   retention_in_days = 0
@@ -53,7 +53,7 @@ resource "aws_cloudwatch_log_group" "this" {
 
 resource "aws_iam_role_policy_attachment" "this" {
   policy_arn = aws_iam_policy.lambda[0].arn
-  role       = aws_iam_role.this[0].name
+  role       = aws_iam_role.lambda[0].name
 }
 
 resource "aws_iam_policy" "lambda" {
@@ -73,14 +73,6 @@ data "aws_iam_policy_document" "lambda_access" {
       "logs:PutLogEvents"
     ]
     resources = ["arn:aws:logs:*:*:*"]
-  }
-
-  statement {
-    sid = "PrivateCAAccess"
-    actions = [
-      "acm-pca:IssueCertificate"
-    ]
-    resources = [aws_acmpca_certificate_authority.this.arn]
   }
 }
 

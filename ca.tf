@@ -45,6 +45,29 @@ resource "aws_acmpca_certificate_authority" "this" {
   tags = var.private_ca_tags
 }
 
+resource "aws_acmpca_policy" "this" {
+  policy       = data.aws_iam_policy_document.acmpca.json
+  resource_arn = aws_acmpca_certificate_authority.this.arn
+}
+
+data "aws_iam_policy_document" "acmpca" {
+  dynamic "statement" {
+    for_each = var.deploy_lambda ? ["OK"] : []
+
+    content {
+      sid = "LambdaCAAcces"
+      principals {
+        identifiers = [aws_iam_role.lambda.arn]
+        type        = "AWS"
+      }
+      actions = [
+        "acm-pca:IssueCertificate"
+      ]
+      resources = [aws_acmpca_certificate_authority.this.arn]
+    }
+  }
+}
+
 #resource "aws_route53_record" "this" {
 #  count = var.enable_ocsp ? 1 : 0
 #
