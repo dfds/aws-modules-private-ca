@@ -91,7 +91,7 @@ resource "aws_lambda_invocation" "this" {
   count = var.deploy_lambda ? 1 : 0
 
   function_name = aws_lambda_function.this[0].function_name
-  input         = ""
+  input         = jsonencode({})
   triggers = {
     redeployment = sha1(jsonencode([
       aws_lambda_function.this[0].environment
