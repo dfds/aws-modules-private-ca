@@ -58,6 +58,7 @@ resource "aws_cloudwatch_log_group" "lambda" {
 
 resource "aws_iam_role_policy_attachment" "this" {
   for_each   = toset(local.lambda_policies)
+  depends_on = [aws_iam_policy.lambda_pca_access]
   policy_arn = each.value
   role       = aws_iam_role.lambda[0].name
 }
