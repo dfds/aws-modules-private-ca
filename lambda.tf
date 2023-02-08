@@ -78,7 +78,8 @@ data "aws_iam_policy_document" "lambda_pca_access" {
     actions = [
       "acm-pca:IssueCertificate",
       "acm-pca:GetCertificate",
-      "acm-pca:ListPermissions"
+      "acm-pca:ListPermissions",
+      "acm-pca:ImportCertificateAuthorityCertificate"
     ]
     resources = [
       aws_acmpca_certificate_authority.this.arn
