@@ -75,10 +75,13 @@ data "aws_iam_policy_document" "lambda_access" {
     resources = [aws_cloudwatch_log_group.this[0].arn]
   }
 
-  #  statement {
-  #    sid = "PrivateCAAccess"
-  #    actions = []
-  #  }
+  statement {
+    sid = "PrivateCAAccess"
+    actions = [
+      "acm-pca:IssueCertificate"
+    ]
+    resources = [aws_acmpca_certificate_authority.this.arn]
+  }
 }
 
 resource "aws_lambda_invocation" "this" {
