@@ -52,28 +52,8 @@ resource "aws_cloudwatch_log_group" "lambda" {
 }
 
 resource "aws_iam_role_policy_attachment" "this" {
-  policy_arn = aws_iam_policy.lambda[0].arn
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
   role       = aws_iam_role.lambda[0].name
-}
-
-resource "aws_iam_policy" "lambda" {
-  count = var.deploy_lambda ? 1 : 0
-
-  name   = "${local.lambda_name}-access"
-  policy = data.aws_iam_policy_document.lambda_access[0].json
-}
-
-data "aws_iam_policy_document" "lambda_access" {
-  count = var.deploy_lambda ? 1 : 0
-
-  statement {
-    sid = "CloudwatchAccess"
-    actions = [
-      "logs:CreateLogStream",
-      "logs:PutLogEvents"
-    ]
-    resources = ["arn:aws:logs:*:*:*"]
-  }
 }
 
 resource "aws_lambda_invocation" "this" {
