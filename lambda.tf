@@ -2,7 +2,8 @@ locals {
   lambda_name = "certificate-issuer"
   lambda_managed_policies = [
     "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
-    "arn:aws:iam::aws:policy/AWSCertificateManagerPrivateCAReadOnly"
+    "arn:aws:iam::aws:policy/AWSCertificateManagerPrivateCAReadOnly",
+    "arn:aws:iam::aws:policy/AWSCertificateManagerPrivateCAUser"
   ]
 }
 
