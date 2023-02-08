@@ -55,15 +55,20 @@ data "aws_iam_policy_document" "acmpca" {
     for_each = var.deploy_lambda ? ["OK"] : []
 
     content {
-      sid = "LambdaCAAcces"
+      sid = "IssueCertificate"
       principals {
-        identifiers = [aws_iam_role.lambda[0].arn]
+        identifiers = [data.aws_caller_identity.current.account_id]
         type        = "AWS"
       }
       actions = [
         "acm-pca:IssueCertificate"
       ]
       resources = [aws_acmpca_certificate_authority.this.arn]
+      condition {
+        test     = "StringEquals"
+        values   = ["arn:aws:acm-pca:::template/EndEntityCertificate/V1"]
+        variable = "acm-pca:TemplateArn"
+      }
     }
   }
 }
