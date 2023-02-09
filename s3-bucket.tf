@@ -40,11 +40,6 @@ data "aws_iam_policy_document" "bucket" {
       values   = [data.aws_caller_identity.current.account_id]
       variable = "aws:SourceAccount"
     }
-    #    condition {
-    #      test     = "StringEquals"
-    #      values   = ["arn:${data.aws_partition.current.partition}:acm-pca:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:certificate-authority/CA_ID"]
-    #      variable = "aws:SourceArn"
-    #    }
   }
 
   statement {
@@ -67,11 +62,11 @@ data "aws_iam_policy_document" "bucket" {
       variable = "aws:SecureTransport"
     }
 
-    #    condition {
-    #      test     = "NumericLessThan"
-    #      values   = [1.2]
-    #      variable = "s3:TlsVersion"
-    #    }
+    condition {
+      test     = "NumericLessThan"
+      values   = [1.2]
+      variable = "s3:TlsVersion"
+    }
   }
 
   # Allow OAI access - https://aws.amazon.com/premiumsupport/knowledge-center/cloudfront-access-to-amazon-s3/
