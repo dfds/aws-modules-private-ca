@@ -27,6 +27,7 @@ data "aws_iam_policy_document" "kms" {
     }
     actions = [
       "kms:GenerateDataKey",
+      "kms:Encrypt",
       "kms:Decrypt"
     ]
     resources = ["*"]
