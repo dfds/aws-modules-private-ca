@@ -117,7 +117,7 @@ variable "s3_object_acl" {
 variable "enable_ocsp" {
   type        = bool
   description = "Whether a custom OCSP responder is enabled"
-  default     = true
+  default     = false
 }
 
 variable "ocsp_custom_cname" {
@@ -174,12 +174,6 @@ variable "cloudfront_logging_bucket" {
 }
 
 ## Lambda
-variable "deploy_lambda" {
-  type        = bool
-  description = "Whether to deploy the lambda to issue self-signed certificate for the private CA"
-  default     = true
-}
-
 variable "ca_certificate_validity" {
   type        = number
   description = "How long the CA certificate should be valid in days"

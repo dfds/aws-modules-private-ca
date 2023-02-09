@@ -1,13 +1,9 @@
 locals {
   lambda_name = "certificate-issuer"
-  lambda_managed_policies = [
-    "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
-    "arn:aws:iam::aws:policy/AWSCertificateManagerPrivateCAReadOnly"
-  ]
 }
 
 resource "aws_lambda_function" "this" {
-  count = var.deploy_lambda ? 1 : 0
+  count = var.ca_type == "ROOT" ? 1 : 0
 
   function_name    = local.lambda_name
   role             = aws_iam_role.lambda[0].arn
@@ -31,14 +27,14 @@ resource "aws_lambda_function" "this" {
 }
 
 resource "aws_iam_role" "lambda" {
-  count = var.deploy_lambda ? 1 : 0
+  count = var.ca_type == "ROOT" ? 1 : 0
 
   name               = local.lambda_name
-  assume_role_policy = data.aws_iam_policy_document.lambda[0].json
+  assume_role_policy = data.aws_iam_policy_document.lambda_trust[0].json
 }
 
-data "aws_iam_policy_document" "lambda" {
-  count = var.deploy_lambda ? 1 : 0
+data "aws_iam_policy_document" "lambda_trust" {
+  count = var.ca_type == "ROOT" ? 1 : 0
 
   statement {
     actions = ["sts:AssumeRole"]
@@ -49,33 +45,43 @@ data "aws_iam_policy_document" "lambda" {
   }
 }
 
-resource "aws_cloudwatch_log_group" "lambda" {
-  count             = var.deploy_lambda ? 1 : 0
-  name              = "/aws/lambda/${local.lambda_name}"
-  retention_in_days = 0
-}
-
-resource "aws_iam_role_policy_attachment" "this" {
-  for_each   = toset(local.lambda_managed_policies)
-  policy_arn = each.value
-  role       = aws_iam_role.lambda[0].name
-}
-
 resource "aws_iam_role_policy_attachment" "lambda" {
+  count = var.ca_type == "ROOT" ? 1 : 0
+
   policy_arn = aws_iam_policy.lambda_pca_access[0].arn
   role       = aws_iam_role.lambda[0].name
 }
 
 resource "aws_iam_policy" "lambda_pca_access" {
-  count  = var.deploy_lambda ? 1 : 0
-  policy = data.aws_iam_policy_document.lambda_pca_access[0].json
+  count  = var.ca_type == "ROOT" ? 1 : 0
+  policy = data.aws_iam_policy_document.lambda_access[0].json
 }
 
-data "aws_iam_policy_document" "lambda_pca_access" {
-  count = var.deploy_lambda ? 1 : 0
+data "aws_iam_policy_document" "lambda_access" {
+  count = var.ca_type == "ROOT" ? 1 : 0
+
+  statement {
+    sid = "ClowudwatchAccess"
+    actions = [
+      "logs:CreateLogStream",
+      "logs:PutLogEvents"
+    ]
+    resources = [
+      "${aws_cloudwatch_log_group.lambda[0].arn}:*"
+    ]
+  }
+
   statement {
     sid = "AccessPCA"
     actions = [
+      "acm-pca:DescribeCertificateAuthority",
+      "acm-pca:ListCertificateAuthorities",
+      "acm-pca:GetCertificateAuthorityCsr",
+      "acm-pca:GetCertificateAuthorityCertificate",
+      "acm-pca:GetCertificate",
+      "acm-pca:GetPolicy",
+      "acm-pca:ListPermissions",
+      "acm-pca:ListTags",
       "acm-pca:IssueCertificate",
       "acm-pca:GetCertificate",
       "acm-pca:ListPermissions",
@@ -87,8 +93,14 @@ data "aws_iam_policy_document" "lambda_pca_access" {
   }
 }
 
+resource "aws_cloudwatch_log_group" "lambda" {
+  count             = var.ca_type == "ROOT" ? 1 : 0
+  name              = "/aws/lambda/${local.lambda_name}"
+  retention_in_days = 0
+}
+
 resource "aws_lambda_invocation" "this" {
-  count = var.deploy_lambda ? 1 : 0
+  count = var.ca_type == "ROOT" ? 1 : 0
 
   function_name = aws_lambda_function.this[0].function_name
   input         = jsonencode({})

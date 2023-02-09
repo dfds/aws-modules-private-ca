@@ -10,6 +10,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/acmpca/types"
 	"log"
 	"os"
+	"strconv"
 )
 
 
@@ -37,21 +38,22 @@ func HandleRequest(ctx context.Context) (string, error) {
 	}
 
 	// Retrieve the certificate signing request (CSR)
-	csrInput := &acmpca.GetCertificateAuthorityCsrInput{
+	csri := &acmpca.GetCertificateAuthorityCsrInput{
 		CertificateAuthorityArn: aws.String(os.Getenv("CA_ARN")),
 	}
-	csrOutput, err := svc.GetCertificateAuthorityCsr(ctx, csrInput)
+	csro, err := svc.GetCertificateAuthorityCsr(ctx, csri)
 	if err != nil {
 		fmt.Println(err.Error())
 		return "", err
 	}
 
+	value, _ := strconv.ParseInt(os.Getenv("VALIDITY_VALUE"), 10, 64)
 	// Issue a self-signed RootCACertificate
 	ici := &acmpca.IssueCertificateInput{
 		CertificateAuthorityArn: caArn,
-		Csr: []byte(*csrOutput.Csr),
+		Csr: []byte(*csro.Csr),
 		SigningAlgorithm: "SHA256WITHRSA",
-		Validity: &types.Validity{Type: "DAYS", Value: aws.Int64(7)},
+		Validity: &types.Validity{Type: "DAYS", Value: &value},
 		TemplateArn: aws.String("arn:aws:acm-pca:::template/RootCACertificate/V1"),
 	}
 	ico, err := svc.IssueCertificate(ctx, ici)

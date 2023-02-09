@@ -32,7 +32,6 @@ AWS Private CA enables creation of private certificate authority (CA) hierarchie
 | [aws_iam_policy.lambda_pca_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_role.lambda](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
 | [aws_iam_role_policy_attachment.lambda](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
-| [aws_iam_role_policy_attachment.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_kms_alias.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_alias) | resource |
 | [aws_kms_key.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_key) | resource |
 | [aws_lambda_function.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function) | resource |
@@ -41,8 +40,8 @@ AWS Private CA enables creation of private certificate authority (CA) hierarchie
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_iam_policy_document.bucket](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.kms](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_policy_document.lambda](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_policy_document.lambda_pca_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.lambda_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.lambda_trust](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 
 ## Inputs
 
@@ -57,11 +56,10 @@ AWS Private CA enables creation of private certificate authority (CA) hierarchie
 | <a name="input_country"></a> [country](#input\_country) | Two digit code that specifies the country in which the certificate subject located | `string` | `""` | no |
 | <a name="input_create_kms"></a> [create\_kms](#input\_create\_kms) | Whether to create a KMS key for S3 bucket | `bool` | `true` | no |
 | <a name="input_custom_cname"></a> [custom\_cname](#input\_custom\_cname) | Name inserted into the certificate CRL Distribution Points extension that enables the use of an alias for the CRL distribution point. Use this value if you don't want the name of your S3 bucket to be public | `string` | `""` | no |
-| <a name="input_deploy_lambda"></a> [deploy\_lambda](#input\_deploy\_lambda) | Whether to deploy the lambda to issue self-signed certificate for the private CA | `bool` | `true` | no |
 | <a name="input_enable_crl"></a> [enable\_crl](#input\_enable\_crl) | Whether to enable Certificate Revocation Lists | `bool` | `true` | no |
 | <a name="input_enable_key_rotation"></a> [enable\_key\_rotation](#input\_enable\_key\_rotation) | Whether to enable key rotation | `bool` | `true` | no |
 | <a name="input_enable_kms_default_policy"></a> [enable\_kms\_default\_policy](#input\_enable\_kms\_default\_policy) | Whether to enable default policy for KMS key | `bool` | `true` | no |
-| <a name="input_enable_ocsp"></a> [enable\_ocsp](#input\_enable\_ocsp) | Whether a custom OCSP responder is enabled | `bool` | `true` | no |
+| <a name="input_enable_ocsp"></a> [enable\_ocsp](#input\_enable\_ocsp) | Whether a custom OCSP responder is enabled | `bool` | `false` | no |
 | <a name="input_expiration_in_days"></a> [expiration\_in\_days](#input\_expiration\_in\_days) | Number of days until a certificate expires | `number` | `7` | no |
 | <a name="input_key_algorithm"></a> [key\_algorithm](#input\_key\_algorithm) | Type of the public key algorithm and size, in bits, of the key pair that your key pair creates when it issues a certificate | `string` | `"RSA_2048"` | no |
 | <a name="input_kms_key_administrators"></a> [kms\_key\_administrators](#input\_kms\_key\_administrators) | List of KMS key administrators | `list(string)` | `[]` | no |
