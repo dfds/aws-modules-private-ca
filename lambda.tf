@@ -5,14 +5,15 @@ locals {
 resource "aws_lambda_function" "this" {
   count = var.ca_type == "ROOT" ? 1 : 0
 
-  function_name    = local.lambda_name
-  role             = aws_iam_role.lambda[0].arn
-  runtime          = "go1.x"
-  filename         = "${path.module}/lambdas/${local.lambda_name}/${local.lambda_name}.zip"
-  source_code_hash = filebase64sha256("${path.module}/lambdas/${local.lambda_name}/${local.lambda_name}.zip")
-  handler          = "main"
-  timeout          = 120
-  memory_size      = 512
+  function_name                  = local.lambda_name
+  role                           = aws_iam_role.lambda[0].arn
+  runtime                        = "go1.x"
+  filename                       = "${path.module}/lambdas/${local.lambda_name}/${local.lambda_name}.zip"
+  source_code_hash               = filebase64sha256("${path.module}/lambdas/${local.lambda_name}/${local.lambda_name}.zip")
+  handler                        = "main"
+  timeout                        = 120
+  memory_size                    = 512
+  reserved_concurrent_executions = 1
 
   environment {
     variables = {
