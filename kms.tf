@@ -28,7 +28,9 @@ data "aws_iam_policy_document" "kms" {
     actions = [
       "kms:GenerateDataKey",
       "kms:Encrypt",
-      "kms:Decrypt"
+      "kms:Decrypt",
+      "kms:ReEncrypt*",
+      "kms:DescribeKey",
     ]
     resources = ["*"]
     condition {
