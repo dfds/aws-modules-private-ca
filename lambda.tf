@@ -107,9 +107,12 @@ resource "aws_lambda_invocation" "this" {
 
   function_name = aws_lambda_function.this[0].function_name
   input         = jsonencode({})
+  #  triggers = {
+  #    redeployment = sha1(jsonencode([
+  #      aws_lambda_function.this[0].environment
+  #    ]))
+  #  }
   triggers = {
-    redeployment = sha1(jsonencode([
-      aws_lambda_function.this[0].environment
-    ]))
+    redeployment = aws_lambda_function.this[0].source_code_hash
   }
 }
