@@ -48,13 +48,16 @@ data "aws_iam_policy_document" "lambda_trust" {
 resource "aws_iam_role_policy_attachment" "lambda" {
   count = var.ca_type == "ROOT" ? 1 : 0
 
-  policy_arn = aws_iam_policy.lambda_pca_access[0].arn
+  policy_arn = aws_iam_policy.lambda_access[0].arn
   role       = aws_iam_role.lambda[0].name
 }
 
-resource "aws_iam_policy" "lambda_pca_access" {
-  count  = var.ca_type == "ROOT" ? 1 : 0
-  policy = data.aws_iam_policy_document.lambda_access[0].json
+resource "aws_iam_policy" "lambda_access" {
+  count = var.ca_type == "ROOT" ? 1 : 0
+
+  name        = "${local.lambda_name}-lambda-access"
+  description = "Access policy for the ${local.lambda_name} lambda"
+  policy      = data.aws_iam_policy_document.lambda_access[0].json
 }
 
 data "aws_iam_policy_document" "lambda_access" {
