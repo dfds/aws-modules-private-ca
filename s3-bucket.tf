@@ -69,13 +69,22 @@ data "aws_iam_policy_document" "bucket" {
     }
   }
 
-  # Allow OAI access - https://aws.amazon.com/premiumsupport/knowledge-center/cloudfront-access-to-amazon-s3/
   statement {
+    sid = "AllowCloudFrontServicePrincipal"
     principals {
-      identifiers = [aws_cloudfront_origin_access_identity.this.iam_arn]
-      type        = "AWS"
+      identifiers = ["cloudfront.amazonaws.com"]
+      type        = "Service"
     }
-    actions   = ["s3:GetObject"]
-    resources = ["${module.crl_bucket[0].bucket_arn}/*"]
+    actions = [
+      "s3:GetObject"
+    ]
+    resources = [
+      "${module.crl_bucket[0].bucket_arn}/*"
+    ]
+    condition {
+      test     = "StringEquals"
+      values   = [module.cloudfront[0].cloudfront_arn]
+      variable = "AWS:SourceArn"
+    }
   }
 }

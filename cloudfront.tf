@@ -1,10 +1,6 @@
-resource "aws_cloudfront_origin_access_identity" "this" {
-  comment = "crl-access-identity"
-}
-
 module "cloudfront" {
   count  = var.enable_crl || var.enable_ocsp ? 1 : 0
-  source = "git::https://github.com/dfds/aws-modules-cloudfront.git?ref=main"
+  source = "git::https://github.com/dfds/aws-modules-cloudfront.git?ref=add_cloudfront_arn_output"
 
   allowed_methods = ["GET", "HEAD"]
   cached_methods  = ["GET", "HEAD"]
@@ -12,11 +8,9 @@ module "cloudfront" {
 
   origin = [
     {
-      domain_name = module.crl_bucket[0].bucket_domain_name
-      origin_id   = module.crl_bucket[0].bucket_name
-      s3_origin_config = {
-        origin_access_identity = aws_cloudfront_origin_access_identity.this.cloudfront_access_identity_path
-      }
+      domain_name              = module.crl_bucket[0].bucket_domain_name
+      origin_id                = module.crl_bucket[0].bucket_name
+      origin_access_control_id = aws_cloudfront_origin_access_control.this[0].id
     }
   ]
 
@@ -40,4 +34,14 @@ module "cloudfront" {
   }
 
   tags = var.cloudfront_tags
+}
+
+resource "aws_cloudfront_origin_access_control" "this" {
+  count = var.enable_crl ? 1 : 0
+
+  name                              = "crl-origin-access-control"
+  description                       = ""
+  origin_access_control_origin_type = "s3"
+  signing_behavior                  = "no-override"
+  signing_protocol                  = "sigv4"
 }

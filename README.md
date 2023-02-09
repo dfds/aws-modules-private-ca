@@ -19,7 +19,7 @@ AWS Private CA enables creation of private certificate authority (CA) hierarchie
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_cloudfront"></a> [cloudfront](#module\_cloudfront) | git::https://github.com/dfds/aws-modules-cloudfront.git | main |
+| <a name="module_cloudfront"></a> [cloudfront](#module\_cloudfront) | git::https://github.com/dfds/aws-modules-cloudfront.git | add_cloudfront_arn_output |
 | <a name="module_crl_bucket"></a> [crl\_bucket](#module\_crl\_bucket) | git::https://github.com/dfds/aws-modules-s3.git | main |
 
 ## Resources
@@ -27,7 +27,7 @@ AWS Private CA enables creation of private certificate authority (CA) hierarchie
 | Name | Type |
 |------|------|
 | [aws_acmpca_certificate_authority.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/acmpca_certificate_authority) | resource |
-| [aws_cloudfront_origin_access_identity.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_origin_access_identity) | resource |
+| [aws_cloudfront_origin_access_control.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_origin_access_control) | resource |
 | [aws_cloudwatch_log_group.lambda](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
 | [aws_iam_policy.lambda_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_role.lambda](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |

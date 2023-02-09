@@ -41,6 +41,29 @@ data "aws_iam_policy_document" "kms" {
   }
 
   dynamic "statement" {
+    for_each = var.enable_crl ? ["OK"] : []
+
+    content {
+      sid = "AllowCloudFrontServicePrincipalSSE-KMS"
+      principals {
+        identifiers = ["cloudfront.amazonaws.com"]
+        type        = "Service"
+      }
+      actions = [
+        "kms:Decrypt",
+        "kms:Encrypt",
+        "kms:GenerateDataKey*"
+      ]
+      resources = ["*"]
+      condition {
+        test     = "StringEquals"
+        values   = [module.cloudfront[0].cloudfront_arn]
+        variable = "AWS:SourceArn"
+      }
+    }
+  }
+
+  dynamic "statement" {
     for_each = var.enable_kms_default_policy ? ["OK"] : []
 
     content {
