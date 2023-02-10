@@ -1,6 +1,6 @@
 module "crl_bucket" {
   count  = var.enable_crl ? 1 : 0
-  source = "git::https://github.com/dfds/aws-modules-s3.git?ref=main"
+  source = "git::https://github.com/dfds/aws-modules-s3.git?ref=v0.0.1"
 
   bucket_name                     = var.bucket_name
   bucket_versioning_configuration = "Enabled"

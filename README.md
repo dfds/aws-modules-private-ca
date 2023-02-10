@@ -19,8 +19,8 @@ AWS Private CA enables creation of private certificate authority (CA) hierarchie
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_cloudfront"></a> [cloudfront](#module\_cloudfront) | git::https://github.com/dfds/aws-modules-cloudfront.git | add_cloudfront_arn_output |
-| <a name="module_crl_bucket"></a> [crl\_bucket](#module\_crl\_bucket) | git::https://github.com/dfds/aws-modules-s3.git | main |
+| <a name="module_cloudfront"></a> [cloudfront](#module\_cloudfront) | git::https://github.com/dfds/aws-modules-cloudfront.git | v1.0.0 |
+| <a name="module_crl_bucket"></a> [crl\_bucket](#module\_crl\_bucket) | git::https://github.com/dfds/aws-modules-s3.git | v0.0.1 |
 
 ## Resources
 

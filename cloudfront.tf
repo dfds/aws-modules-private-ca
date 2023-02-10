@@ -1,6 +1,6 @@
 module "cloudfront" {
   count  = var.enable_crl || var.enable_ocsp ? 1 : 0
-  source = "git::https://github.com/dfds/aws-modules-cloudfront.git?ref=add_cloudfront_arn_output"
+  source = "git::https://github.com/dfds/aws-modules-cloudfront.git?ref=v1.0.0"
 
   allowed_methods = ["GET", "HEAD"]
   cached_methods  = ["GET", "HEAD"]
