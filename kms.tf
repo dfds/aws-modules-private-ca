@@ -33,11 +33,6 @@ data "aws_iam_policy_document" "kms" {
       "kms:DescribeKey",
     ]
     resources = ["*"]
-    #    condition {
-    #      test     = "StringLike"
-    #      values   = ["arn:aws:s3:::${var.bucket_name}"]
-    #      variable = "kms:EncryptionContext:aws:s3:arn"
-    #    }
   }
 
   dynamic "statement" {
