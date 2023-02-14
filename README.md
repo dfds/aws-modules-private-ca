@@ -72,5 +72,7 @@ AWS Private CA enables creation of private certificate authority (CA) hierarchie
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_private_ca_arn"></a> [private\_ca\_arn](#output\_private\_ca\_arn) | ARN of the private certificate authority |
 <!-- END_TF_DOCS -->
