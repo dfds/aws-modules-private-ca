@@ -1,5 +1,6 @@
 resource "aws_kms_key" "this" {
-  count = var.create_kms ? 1 : 0
+  count    = var.create_kms ? 1 : 0
+  provider = aws.crl
 
   description             = "KMS key for private CA "
   deletion_window_in_days = 7
@@ -10,14 +11,16 @@ resource "aws_kms_key" "this" {
 }
 
 resource "aws_kms_alias" "this" {
-  count = var.create_kms ? 1 : 0
+  count    = var.create_kms ? 1 : 0
+  provider = aws.crl
 
   name          = format("alias/%s", var.kms_key_alias)
   target_key_id = aws_kms_key.this[count.index].key_id
 }
 
 data "aws_iam_policy_document" "kms" {
-  count = var.create_kms ? 1 : 0
+  count    = var.create_kms ? 1 : 0
+  provider = aws.crl
 
   statement {
     sid = "AllowPCA"

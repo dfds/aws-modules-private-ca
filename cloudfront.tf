@@ -1,8 +1,9 @@
 module "cloudfront" {
-  count  = var.enable_crl || var.enable_ocsp ? 1 : 0
-  source = "git::https://github.com/dfds/aws-modules-cloudfront.git?ref=v1.0.0"
+  count     = var.enable_crl || var.enable_ocsp ? 1 : 0
+  source    = "git::https://github.com/dfds/aws-modules-cloudfront.git?ref=v1.0.0"
+  providers = { aws = aws.crl }
 
-  allowed_methods = ["GET", "HEAD"]
+  allowed_methods = ["GET", "HEAD", "OPTIONS"]
   cached_methods  = ["GET", "HEAD"]
   http_version    = "http2and3"
 
@@ -37,7 +38,8 @@ module "cloudfront" {
 }
 
 resource "aws_cloudfront_origin_access_control" "this" {
-  count = var.enable_crl ? 1 : 0
+  count    = var.enable_crl ? 1 : 0
+  provider = aws.crl
 
   name                              = "crl-origin-access-control"
   description                       = ""

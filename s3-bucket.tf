@@ -1,6 +1,10 @@
 module "crl_bucket" {
   count  = var.enable_crl ? 1 : 0
-  source = "git::https://github.com/dfds/aws-modules-s3.git?ref=v0.0.1"
+  source = "git::https://github.com/dfds/aws-modules-s3.git?ref=v1.0.0"
+  providers = {
+    aws      = aws.crl
+    aws.logs = aws.crl
+  }
 
   bucket_name                     = var.bucket_name
   bucket_versioning_configuration = "Enabled"
@@ -12,13 +16,16 @@ module "crl_bucket" {
 }
 
 resource "aws_s3_bucket_policy" "this" {
-  count  = var.enable_crl ? 1 : 0
+  count    = var.enable_crl ? 1 : 0
+  provider = aws.crl
+
   bucket = module.crl_bucket[0].bucket_name
   policy = data.aws_iam_policy_document.bucket[0].json
 }
 
 data "aws_iam_policy_document" "bucket" {
-  count = var.enable_crl ? 1 : 0
+  count    = var.enable_crl ? 1 : 0
+  provider = aws.crl
 
   statement {
     principals {
