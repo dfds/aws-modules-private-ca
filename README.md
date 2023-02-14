@@ -15,13 +15,14 @@ AWS Private CA enables creation of private certificate authority (CA) hierarchie
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.50.0 |
+| <a name="provider_aws.crl"></a> [aws.crl](#provider\_aws.crl) | >= 4.50.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_cloudfront"></a> [cloudfront](#module\_cloudfront) | git::https://github.com/dfds/aws-modules-cloudfront.git | v1.0.0 |
-| <a name="module_crl_bucket"></a> [crl\_bucket](#module\_crl\_bucket) | git::https://github.com/dfds/aws-modules-s3.git | v0.0.1 |
+| <a name="module_crl_bucket"></a> [crl\_bucket](#module\_crl\_bucket) | git::https://github.com/dfds/aws-modules-s3.git | v1.0.0 |
 
 ## Resources
 
