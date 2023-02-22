@@ -70,7 +70,7 @@ data "aws_iam_policy_document" "kms" {
       resources = ["*"]
 
       principals {
-        identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"]
+        identifiers = ["arn:aws:iam::${data.aws_caller_identity.crl_account.account_id}:root"]
         type        = "AWS"
       }
     }
