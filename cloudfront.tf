@@ -1,6 +1,6 @@
 module "cloudfront" {
   count     = var.enable_crl || var.enable_ocsp ? 1 : 0
-  source    = "git::https://github.com/dfds/aws-modules-cloudfront.git?ref=v1.0.0"
+  source    = "git::https://github.com/dfds/aws-modules-cloudfront.git?ref=make_logging_config_optional"
   providers = { aws = aws.crl }
 
   allowed_methods = ["GET", "HEAD", "OPTIONS"]
@@ -14,11 +14,6 @@ module "cloudfront" {
       origin_access_control_id = aws_cloudfront_origin_access_control.this[0].id
     }
   ]
-
-  logging_config = {
-    bucket = module.crl_bucket[0].bucket_domain_name
-    prefix = "logs"
-  }
 
   restrictions = {
     geo_restriction = {
