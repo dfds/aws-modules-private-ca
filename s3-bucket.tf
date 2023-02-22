@@ -12,6 +12,8 @@ module "crl_bucket" {
 
   kms_key_arn = aws_kms_key.this[0].arn
 
+  logging_bucket_name = "${var.bucket_name}-logs"
+
 }
 
 resource "aws_s3_bucket_policy" "this" {
