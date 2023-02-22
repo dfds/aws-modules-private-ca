@@ -12,7 +12,8 @@ module "crl_bucket" {
 
   kms_key_arn = aws_kms_key.this[0].arn
 
-  logging_bucket_name = "${var.bucket_name}-logs"
+  create_logging_bucket = true
+  logging_bucket_name   = "${var.bucket_name}-logs"
 
 }
 
