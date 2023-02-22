@@ -1,6 +1,6 @@
 module "cloudfront" {
   count     = var.enable_crl || var.enable_ocsp ? 1 : 0
-  source    = "git::https://github.com/dfds/aws-modules-cloudfront.git?ref=make_logging_config_optional"
+  source    = "git::https://github.com/dfds/aws-modules-cloudfront.git?ref=v1.0.0"
   providers = { aws = aws.crl }
 
   allowed_methods = ["GET", "HEAD", "OPTIONS"]
