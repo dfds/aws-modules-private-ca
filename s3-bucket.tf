@@ -46,7 +46,7 @@ data "aws_iam_policy_document" "bucket" {
     ]
     condition {
       test     = "StringEquals"
-      values   = [data.aws_caller_identity.current.account_id]
+      values   = [data.aws_caller_identity.pca_account.account_id]
       variable = "aws:SourceAccount"
     }
   }
