@@ -1,3 +1,6 @@
-data "aws_caller_identity" "current" {
+data "aws_caller_identity" "crl_account" {
   provider = aws.crl
 }
+
+data "aws_caller_identity" "pca_account" {}
+

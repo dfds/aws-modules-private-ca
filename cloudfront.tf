@@ -15,11 +15,6 @@ module "cloudfront" {
     }
   ]
 
-  logging_config = {
-    bucket = module.crl_bucket[0].bucket_domain_name
-    prefix = "logs"
-  }
-
   restrictions = {
     geo_restriction = {
       restriction_type = "none"

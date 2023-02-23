@@ -2,8 +2,7 @@ module "crl_bucket" {
   count  = var.enable_crl ? 1 : 0
   source = "git::https://github.com/dfds/aws-modules-s3.git?ref=v1.0.0"
   providers = {
-    aws      = aws.crl
-    aws.logs = aws.crl
+    aws = aws.crl
   }
 
   bucket_name                     = var.bucket_name
@@ -12,6 +11,9 @@ module "crl_bucket" {
   create_policy                   = false
 
   kms_key_arn = aws_kms_key.this[0].arn
+
+  create_logging_bucket = true
+  logging_bucket_name   = "${var.bucket_name}-logs"
 
 }
 
@@ -44,7 +46,7 @@ data "aws_iam_policy_document" "bucket" {
     ]
     condition {
       test     = "StringEquals"
-      values   = [data.aws_caller_identity.current.account_id]
+      values   = [data.aws_caller_identity.pca_account.account_id]
       variable = "aws:SourceAccount"
     }
   }
