@@ -1,6 +1,6 @@
 module "cloudfront" {
   count     = var.enable_crl || var.enable_ocsp ? 1 : 0
-  source    = "git::https://github.com/dfds/aws-modules-cloudfront.git?ref=v1.0.0"
+  source    = "git::https://github.com/dfds/aws-modules-cloudfront.git?ref=v1.0.1"
   providers = { aws = aws.crl }
 
   allowed_methods = ["GET", "HEAD", "OPTIONS"]
@@ -27,6 +27,11 @@ module "cloudfront" {
 
   viewer_certificate = {
     cloudfront_default_certificate = true
+  }
+
+  logging_config = {
+    bucket = module.cloudfront_logs_bucket[0].bucket_domain_name
+    prefix = "cloudfront-logs/"
   }
 
   tags = var.cloudfront_tags

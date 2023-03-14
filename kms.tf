@@ -62,6 +62,20 @@ data "aws_iam_policy_document" "kms" {
   }
 
   dynamic "statement" {
+    for_each = var.enable_crl ? ["OK"] : []
+
+    content {
+      sid = "Allow CloudFront to use the key to deliver logs"
+      principals {
+        identifiers = ["delivery.logs.amazonaws.com"]
+        type        = "Service"
+      }
+      actions = ["kms:GenerateDataKey*"]
+      resources = ["*"]
+    }
+  }
+
+  dynamic "statement" {
     for_each = var.enable_kms_default_policy ? ["OK"] : []
 
     content {

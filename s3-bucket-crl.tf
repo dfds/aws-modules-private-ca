@@ -1,6 +1,6 @@
 module "crl_bucket" {
   count  = var.enable_crl ? 1 : 0
-  source = "git::https://github.com/dfds/aws-modules-s3.git?ref=v1.0.0"
+  source = "git::https://github.com/dfds/aws-modules-s3.git?ref=v1.1.0"
   providers = {
     aws = aws.crl
   }
@@ -12,8 +12,7 @@ module "crl_bucket" {
 
   kms_key_arn = aws_kms_key.this[0].arn
 
-  create_logging_bucket = true
-  logging_bucket_name   = "${var.bucket_name}-logs"
+  logging_bucket_name   = module.s3_logs_bucket[0].bucket_name
 
 }
 

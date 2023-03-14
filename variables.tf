@@ -167,10 +167,14 @@ variable "kms_key_users" {
 
 ## Cloudfront
 
-variable "cloudfront_logging_bucket" {
+variable "cloudfront_logs_bucket" {
   type        = string
   description = "Name of the S3 bucket for Cloudfront logs"
-  default     = ""
+}
+
+variable "s3_logs_bucket" {
+  type = string
+  description = "S3 bucket name to store S3 logs"
 }
 
 ## Lambda
