@@ -1,6 +1,6 @@
 module "cloudfront_logs_bucket" {
   count  = var.enable_crl ? 1 : 0
-  source = "git::https://github.com/dfds/aws-modules-s3.git?ref=v1.1.0"
+  source = "git::https://github.com/dfds/aws-modules-s3.git?ref=v1.2.0"
   providers = {
     aws = aws.crl
   }
