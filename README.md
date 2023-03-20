@@ -22,9 +22,9 @@ AWS Private CA enables creation of private certificate authority (CA) hierarchie
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_cloudfront"></a> [cloudfront](#module\_cloudfront) | git::https://github.com/dfds/aws-modules-cloudfront.git | v1.0.1 |
-| <a name="module_cloudfront_logs_bucket"></a> [cloudfront\_logs\_bucket](#module\_cloudfront\_logs\_bucket) | git::https://github.com/dfds/aws-modules-s3.git | v1.1.0 |
-| <a name="module_crl_bucket"></a> [crl\_bucket](#module\_crl\_bucket) | git::https://github.com/dfds/aws-modules-s3.git | v1.1.0 |
-| <a name="module_s3_logs_bucket"></a> [s3\_logs\_bucket](#module\_s3\_logs\_bucket) | git::https://github.com/dfds/aws-modules-s3.git//s3-logging-bucket | v1.1.0 |
+| <a name="module_cloudfront_logs_bucket"></a> [cloudfront\_logs\_bucket](#module\_cloudfront\_logs\_bucket) | git::https://github.com/dfds/aws-modules-s3.git | v1.2.0 |
+| <a name="module_crl_bucket"></a> [crl\_bucket](#module\_crl\_bucket) | git::https://github.com/dfds/aws-modules-s3.git | v1.2.0 |
+| <a name="module_s3_logs_bucket"></a> [s3\_logs\_bucket](#module\_s3\_logs\_bucket) | git::https://github.com/dfds/aws-modules-s3.git//s3-logging-bucket | v1.2.0 |
 
 ## Resources
 
