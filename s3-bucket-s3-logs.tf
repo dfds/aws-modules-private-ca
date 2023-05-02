@@ -1,6 +1,6 @@
 module "s3_logs_bucket" {
   count  = var.enable_crl ? 1 : 0
-  source = "git::https://github.com/dfds/aws-modules-s3.git//s3-logging-bucket?ref=v1.2.0"
+  source = "git::https://github.com/dfds/aws-modules-s3.git//s3-logging-bucket?ref=v1.3.0"
   providers = {
     aws = aws.crl
   }
