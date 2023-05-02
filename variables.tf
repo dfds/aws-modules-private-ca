@@ -177,6 +177,11 @@ variable "s3_logs_bucket" {
   description = "S3 bucket name to store S3 logs"
 }
 
+variable "cloudfront_origin_access_control_name" {
+  type = string
+  description = "Unique Cloudfront origin access control name"
+}
+
 ## Lambda
 variable "ca_certificate_validity" {
   type        = number

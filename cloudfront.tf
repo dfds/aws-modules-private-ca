@@ -41,7 +41,7 @@ resource "aws_cloudfront_origin_access_control" "this" {
   count    = var.enable_crl ? 1 : 0
   provider = aws.crl
 
-  name                              = "crl-origin-access-control"
+  name                              = var.cloudfront_origin_access_control_name
   description                       = ""
   origin_access_control_origin_type = "s3"
   signing_behavior                  = "no-override"
