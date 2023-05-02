@@ -48,6 +48,7 @@ AWS Private CA enables creation of private certificate authority (CA) hierarchie
 | <a name="input_ca_certificate_validity"></a> [ca\_certificate\_validity](#input\_ca\_certificate\_validity) | How long the CA certificate should be valid in days | `number` | `3634` | no |
 | <a name="input_ca_type"></a> [ca\_type](#input\_ca\_type) | Type of the certificate authority. Defaults to `SUBORDINATE` | `string` | `"SUBORDINATE"` | no |
 | <a name="input_cloudfront_logs_bucket"></a> [cloudfront\_logs\_bucket](#input\_cloudfront\_logs\_bucket) | Name of the S3 bucket for Cloudfront logs | `string` | n/a | yes |
+| <a name="input_cloudfront_origin_access_control_name"></a> [cloudfront\_origin\_access\_control\_name](#input\_cloudfront\_origin\_access\_control\_name) | Unique Cloudfront origin access control name | `string` | n/a | yes |
 | <a name="input_cloudfront_tags"></a> [cloudfront\_tags](#input\_cloudfront\_tags) | Map of tags for Cloudfront distribution | `object({})` | `{}` | no |
 | <a name="input_common_name"></a> [common\_name](#input\_common\_name) | Fully qualified domain name (FQDN) associated with the certificate subject | `string` | `""` | no |
 | <a name="input_country"></a> [country](#input\_country) | Two digit code that specifies the country in which the certificate subject located | `string` | `""` | no |
