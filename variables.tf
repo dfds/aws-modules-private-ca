@@ -177,7 +177,7 @@ variable "s3_logs_bucket" {
   description = "S3 bucket name to store S3 logs"
 }
 
-varibale "cloudfront_origin_access_control_name" {
+variable "cloudfront_origin_access_control_name" {
   type = string
   description = "Unique Cloudfront origin access control name"
 }
